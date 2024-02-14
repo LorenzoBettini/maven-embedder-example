@@ -1,0 +1,11 @@
+.DS_Store
+*.class
+bin/
+*~
+logs.zip
+*.orig
+*.log
+
+# for Maven builds
+target
+
