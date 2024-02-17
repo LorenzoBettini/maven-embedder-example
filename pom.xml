@@ -20,16 +20,65 @@
 	</properties>
 
 	<dependencies>
+		<!-- Testing dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- For the FileUtils.deleteDirectory that
+			we use in tests. -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-embedder</artifactId>
 			<version>${maven-embedder-version}</version>
+		</dependency>
+		<!-- For Maven logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.36</version>
+		</dependency>
+		<!--
+			Required due to https://issues.apache.org/jira/browse/MNG-6561
+			Otherwise, you get the error:
+			[main] WARN Sisu - Error injecting: org.apache.maven.project.DefaultProjectBuildingHelper
+			com.google.inject.ProvisionException: Unable to provision, see the following errors:
+			1) No implementation for RepositorySystem was bound.
+			  while locating DefaultProjectBuildingHelper
+		-->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-compat</artifactId>
+			<version>${maven-embedder-version}</version>
+		</dependency>
+		<!--
+			Required to let Maven download artifacts.
+			Otherwise, you get errors of the shape:
+			Plugin ... or one of its dependencies could not be resolved:
+			Failed to read artifact descriptor for ...:
+			Could not transfer artifact ... from/to central (https://repo.maven.apache.org/maven2):
+			No connector factories available.
+		-->
+		<dependency>
+			<groupId>org.apache.maven.resolver</groupId>
+			<artifactId>maven-resolver-connector-basic</artifactId>
+			<version>1.9.18</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.resolver</groupId>
+			<artifactId>maven-resolver-transport-http</artifactId>
+			<version>1.9.18</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
